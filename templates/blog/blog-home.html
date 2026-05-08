@@ -30,8 +30,8 @@
 						<div class="overlay overlay-bg"></div>
 						<a href="#" target="_blank">
 							<div class="thumb">
-								<img class="content-image img-fluid d-block mx-auto" src="{% static 'img/blog/cat-widget1.jpg' %}"
-									alt="">
+								<img class="content-image img-fluid d-block mx-auto"
+									src="{% static 'img/blog/cat-widget1.jpg' %}" alt="">
 							</div>
 							<div class="content-details">
 								<h4 class="content-title mx-auto text-uppercase">Social life</h4>
@@ -48,8 +48,8 @@
 						<div class="overlay overlay-bg"></div>
 						<a href="#" target="_blank">
 							<div class="thumb">
-								<img class="content-image img-fluid d-block mx-auto" src="{% static 'img/blog/cat-widget2.jpg' %}"
-									alt="">
+								<img class="content-image img-fluid d-block mx-auto"
+									src="{% static 'img/blog/cat-widget2.jpg' %}" alt="">
 							</div>
 							<div class="content-details">
 								<h4 class="content-title mx-auto text-uppercase">Politics</h4>
@@ -66,8 +66,8 @@
 						<div class="overlay overlay-bg"></div>
 						<a href="#" target="_blank">
 							<div class="thumb">
-								<img class="content-image img-fluid d-block mx-auto" src="{% static 'img/blog/cat-widget3.jpg' %}"
-									alt="">
+								<img class="content-image img-fluid d-block mx-auto"
+									src="{% static 'img/blog/cat-widget3.jpg' %}" alt="">
 							</div>
 							<div class="content-details">
 								<h4 class="content-title mx-auto text-uppercase">Food</h4>
@@ -112,13 +112,13 @@
 						<div class="feature-img">
 							<img class="img-fluid" src="{% static 'img/blog/feature-img1.jpg' %}" alt="">
 						</div>
-						<a class="posts-title" href="#">
+						<a class="posts-title" href="{% url 'blog:single' post.pk %}">
 							<h3>{{ post.title }}</h3>
 						</a>
 						<p class="excert">
 							{{post.content}}
 						</p>
-						<a href="#" class="primary-btn">View More</a>
+						<a href="{% url 'blog:single' post.pk %}" class="primary-btn">View More</a>
 					</div>
 				</div>
 				{% endfor %}
