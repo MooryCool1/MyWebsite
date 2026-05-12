@@ -56,9 +56,10 @@
 								<li><a href="#" style="color: inherit;"><i class="fa fa-behance"></i></a></li>
 							</ul>
 							<ul class="tags d-flex" style="list-style:none; padding:0; margin:0; gap:5px;">
-								{% for cat in post.category.all %}
-								<li><a href="#" style="color: inherit;">{{ cat.name }}</a>{% if not forloop.last %}, {% endif %}</li>
-								{% endfor %}
+							
+							{% for cat in post.category.all %}
+								<li><a href="{% url 'blog:category' cat_name=cat.name %}" style="color: inherit;">{{ cat.name }}</a>{% if not forloop.last %}, {% endif %}</li>
+							{% endfor %}
 							</ul>
 						</div>
 					</div>
@@ -243,7 +244,7 @@
 					{% include 'blog/blog-writer.html' %}
 					{% latestposts %}
 					{% include 'blog/blog-ads.html' %}
-					{% include 'blog/blog-post-category.html' %}
+					{% postcategories %}
 					{% include 'blog/blog-newsletter.html' %}
 					{% include 'blog/blog-tags.html' %}
 				</div>
