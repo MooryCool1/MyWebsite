@@ -13,5 +13,9 @@ class Contact(models.Model):
         ordering = ['created_date']
     def __ste__(self):
         return self.name
-# Create your models here.
- 
+class Newsletter(models.Model):
+    email = models.EmailField()
+
+
+    def __str__(self):
+        return self.email

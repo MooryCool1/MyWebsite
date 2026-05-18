@@ -1,10 +1,11 @@
 from django.urls import path
-from . import views
+from website.views import *
+from blog.views import *
 app_name = 'website'
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('about/', views.about, name='about'),
-   # path('blog/', views.blog_home, name='blog_home'),
-    path('blog-single/', views.blog_single, name='blog_single'),
-    path('contact/', views.contact, name='contact'),
+    path('', index, name='index'),
+    path('about/', about, name='about'),
+    path('blog-single/', blog_single, name='blog_single'),
+    path('contact/', contact, name='contact'),
+    path('newsletter', newsletter_view ,name='newsletter')
 ]
