@@ -4495,3 +4495,40 @@ body.mobile-nav-active #mobile-nav-toggle {
 .footer-text a, .footer-text i {
   color: #f8b600;
 }
+#popup-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.popup-msg {
+    color: white;
+    padding: 15px 25px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    font-size: 15px;
+    min-width: 280px;
+    animation: fadeIn 0.4s ease;
+}
+
+.popup-success {
+    background: #28a745;
+}
+
+.popup-error {
+    background: #dc3545;
+}
+
+.popup-close {
+    float: left;
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(50px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
