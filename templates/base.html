@@ -30,7 +30,50 @@
     <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
+{% if messages %}
+<div id="popup-notification" style="
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+">
+    {% for message in messages %}
+    <div class="popup-msg" style="
+        background: {% if message.tags == 'success' %}#28a745{% else %}#dc3545{% endif %};
+        color: white;
+        padding: 15px 25px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        font-size: 15px;
+        min-width: 280px;
+        animation: fadeIn 0.4s ease;
+    ">
+        {{ message }}
+        <span onclick="this.parentElement.remove()" style="
+            float: left;
+            cursor: pointer;
+            margin-right: 10px;
+            font-size: 18px;
+        ">&times;</span>
+    </div>
+    {% endfor %}
+</div>
 
+<style>
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(50px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+</style>    
+
+<script>
+    setTimeout(function() {
+        var popup = document.getElementById('popup-notification');
+        if (popup) popup.style.display = 'none';
+    }, 4000);
+</script>
+{% endif %}
 <body> '
     <header id="header">
         <div class="header-top">
