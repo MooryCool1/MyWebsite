@@ -14,7 +14,7 @@ def contact(request):
         if form.is_valid():
             contact_obj = form.save(commit=False)
             contact_obj.name = 'Unknown'
-            contact_obj.subject = contact_obj.subject or ''  
+            contact_obj.subject = contact_obj.subject or None  
             contact_obj.save()
             messages.add_message(request, messages.SUCCESS, 'your ticket submited successfuly')
         else:
