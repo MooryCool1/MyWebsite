@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'robots',
+    'django_summernote',
     'debug_toolbar',
     'taggit',
     'website.apps.WebsiteConfig',
@@ -54,6 +55,36 @@ SITE_ID = 2
 # robots
 ROBOTS_USE_HOST = True
 ROBOTS_USE_SITEMAP = True
+
+# summernote configs
+SUMMERNOTE_THEME = 'bs4'
+SUMMERNOTE_CONFIG = {
+    # Using SummernoteWidget - iframe mode, default
+    'iframe': True,
+
+    # You can put custom Summernote settings
+    'summernote': { 
+    # As an example, using Summernote Air-mode
+        'airMode': False,
+
+    # Change editor size
+        'width': '100%',
+        'height': '480',
+
+
+           'toolbar': [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']],
+        ],
+    }
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -144,3 +175,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 INTERNAL_IPS = [
     '127.0.0.1', 
 ]
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
