@@ -35,13 +35,14 @@
 					<div class="col-lg-12 mt-20 mb-20">
 						<div class="d-flex justify-content-between align-items-center flex-wrap">
 							<div class="d-flex align-items-center" style="gap: 25px;">
-								<p class="mb-0"><a href="#" style="color: inherit;">{{ post.author.get_full_name }}</a> <span
-										class="lnr lnr-user"></span></p>
-								<p class="mb-0"><a href="#" style="color: inherit;">{{ post.published_date|date:"d M Y" }}</a> <span
-										class="lnr lnr-calendar-full"></span></p>
-								<p class="mb-0"><a href="#" style="color: inherit;">{{ post.counted_views }} Views</a> <span
-										class="lnr lnr-eye"></span></p>
-								<p class="mb-0"><a href="#" style="color: inherit;">06 Comments</a> <span class="lnr lnr-bubble"></span></p>
+								<p class="mb-0"><a href="#" style="color: inherit;">{{ post.author.get_full_name }}</a>
+									<span class="lnr lnr-user"></span></p>
+								<p class="mb-0"><a href="#" style="color: inherit;">{{ post.published_date|date:"d M Y"
+										}}</a> <span class="lnr lnr-calendar-full"></span></p>
+								<p class="mb-0"><a href="#" style="color: inherit;">{{ post.counted_views }} Views</a>
+									<span class="lnr lnr-eye"></span></p>
+								<p class="mb-0"><a href="#" style="color: inherit;">06 Comments</a> <span
+										class="lnr lnr-bubble"></span></p>
 							</div>
 						</div>
 					</div>
@@ -56,10 +57,11 @@
 								<li><a href="#" style="color: inherit;"><i class="fa fa-behance"></i></a></li>
 							</ul>
 							<ul class="tags d-flex" style="list-style:none; padding:0; margin:0; gap:5px;">
-							
-							{% for cat in post.category.all %}
-								<li><a href="{% url 'blog:category' cat_name=cat.name %}" style="color: inherit;">{{ cat.name }}</a>{% if not forloop.last %}, {% endif %}</li>
-							{% endfor %}
+
+								{% for cat in post.category.all %}
+								<li><a href="{% url 'blog:category' cat_name=cat.name %}" style="color: inherit;">{{
+										cat.name }}</a>{% if not forloop.last %}, {% endif %}</li>
+								{% endfor %}
 							</ul>
 						</div>
 					</div>
@@ -114,6 +116,29 @@
 					</div>
 				</div>
 
+				<div class="comments-area">
+					<div id="disqus_thread"></div>
+					<script>
+						/**
+						*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+						*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+						/*
+						var disqus_config = function () {
+						this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+						this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+						};
+						*/
+						(function () { // DON'T EDIT BELOW THIS LINE
+							var d = document, s = d.createElement('script');
+							s.src = 'https://127-0-0-1-8000-g6bs4j0tg3.disqus.com/embed.js';
+							s.setAttribute('data-timestamp', +new Date());
+							(d.head || d.body).appendChild(s);
+						})();
+					</script>
+					<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments
+							powered by Disqus.</a></noscript>
+				</div>
+				<!--
 				<div class="comments-area">
 					<h4>05 Comments</h4>
 					<div class="comment-list">
@@ -237,6 +262,7 @@
 						<a href="#" class="primary-btn text-uppercase">Post Comment</a>
 					</form>
 				</div>
+			-->
 			</div>
 			<div class="col-lg-4 sidebar-widgets">
 				<div class="widget-wrap">
