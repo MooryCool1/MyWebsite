@@ -22,3 +22,9 @@ def postcategories():
 def latestblogposts(arg=6):
     posts = Post.objects.filter(status=True, published_date__lte=timezone.now()).order_by('-published_date')[:arg]
     return {'posts': posts}
+
+@register.inclusion_tag('blog/blog-tags.html')
+def posttags():
+    from taggit.models import Tag
+    tags = Tag.objects.all()
+    return {'tags': tags}

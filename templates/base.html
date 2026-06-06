@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="zxx" class="no-js">
+
 <head>
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -41,13 +42,14 @@
 </div>
 
 <script>
-    setTimeout(function() {
+    setTimeout(function () {
         var popup = document.getElementById('popup-notification');
         if (popup) popup.style.display = 'none';
     }, 4000);
 </script>
 {% endif %}
-<body> '
+
+<body>
     <header id="header">
         <div class="header-top">
             <div class="container">
@@ -151,14 +153,13 @@
                             output.
                         </p>
                         <div>
-                            <form 
-                                action="{% url 'website:newsletter' %}"
-                                method="post" class="subscription relative">
+                            <form action="{% url 'website:newsletter' %}" method="post" class="subscription relative">
                                 {% csrf_token %}
                                 <div class="input-group d-flex flex-row">
                                     <input name="email" placeholder="Email Address" onfocus="this.placeholder = ''"
                                         onblur="this.placeholder = 'Email Address '" required="" type="email">
-                                    <button class="btn bb-btn" type="submit"><span class="lnr lnr-location"></span></button>
+                                    <button class="btn bb-btn" type="submit"><span
+                                            class="lnr lnr-location"></span></button>
                                 </div>
                                 <div class="mt-10 info"></div>
                             </form>
