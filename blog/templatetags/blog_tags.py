@@ -1,7 +1,7 @@
 from django import template
 from django.utils import timezone
 from blog.models import Post
-from blog.models import Category
+from blog.models import Category, Comment
 register = template.Library()
 
 @register.inclusion_tag('blog/blog-popular-post.html')
@@ -17,6 +17,10 @@ def postcategories():
     for name in categories:
         cat_dict[name]=posts.filter(category=name).count()
     return {'categories':cat_dict}
+
+@register.simple_tag(name='comments_count')
+def function(pk):
+    return Comment.objects.filter(post=pk,approved=True).count()
 
 @register.inclusion_tag('website/latest-posts.html')
 def latestblogposts(arg=6):
