@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'taggit',
     'website.apps.WebsiteConfig',
-    'blog.apps.BlogConfig'
+    'blog.apps.BlogConfig', 
+    'accounts'
 ]
 
 # site framework
