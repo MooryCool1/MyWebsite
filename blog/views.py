@@ -4,6 +4,9 @@ from blog.models import Post, Comment
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from blog.forms import CommentForm
 from django.contrib import messages
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+# Create your views here.
 from django.shortcuts import redirect
 def blog_view(request, ** kwargs):
     posts = Post.objects.filter(status=True, published_date__lte=timezone.now()).order_by('-published_date')
@@ -28,6 +31,8 @@ def blog_view(request, ** kwargs):
 
 def blog_single(request, pk): 
     post = get_object_or_404(Post, pk=pk, status=True, published_date__lte=timezone.now())
+    if post.login_require and not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('accounts:login'))
     
     if request.method == 'POST':  
         form = CommentForm(request.POST)
