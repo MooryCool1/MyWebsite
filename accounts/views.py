@@ -1,48 +1,75 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
 
-# Create your views here.
+
+class SignupForm(UserCreationForm):
+    email = forms.EmailField(required=True, label='Email')
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+        return user
+
+
 def login_view(request):
-    if not request.user.is_authenticated:
-        if request.method == 'POST':
-            form = AuthenticationForm(request=request,data=request.POST)
-            if form.is_valid():
-                username = form.cleaned_data.get('username')
-                password = form.cleaned_data.get('password')
-                user = authenticate(request, username=username, password=password)
-                if user is not None:
-                    login(request,user)
-                    return redirect('/')
-
-        form = AuthenticationForm()
-        context = {'form': form}
-        return render(request, 'accounts/login.html', context)
-    else:
+    if request.user.is_authenticated:
         return redirect('/')
+
+    error = None
+
+    if request.method == 'POST':
+        login_type = request.POST.get('login_type', 'username')
+        password = request.POST.get('password', '')
+        user = None
+
+        if login_type == 'email':
+            email = request.POST.get('email', '').strip()
+            try:
+                found_user = User.objects.get(email=email)
+                user = authenticate(request, username=found_user.username, password=password)
+            except User.DoesNotExist:
+                user = None
+        else:
+            username = request.POST.get('username', '').strip()
+            user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            error = 'User not found'
+
+    context = {'error': error}
+    return render(request, 'accounts/login.html', context)
+
+
 @login_required
 def logout_view(request):
-    logout (request)
+    logout(request)
     return redirect('/')
 
 
-29
-30
-31
-32
-33
-
 def signup_view(request):
-    if not request.user.is_authenticated:
-        if request.method == 'POST':
-            form = UserCreationForm(request.POST)
-            if form.is_valid():
-                form. save()
-                return redirect('/')
-        form = UserCreationForm()
-        context = {'form' :form}
-        return render(request, 'accounts/signup.html',context)
-    else:
+    if request.user.is_authenticated:
         return redirect('/')
+
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = SignupForm()
+
+    context = {'form': form}
+    return render(request, 'accounts/signup.html', context)

@@ -53,7 +53,7 @@ INSTALLED_APPS = [
 ]
 
 # site framework
-SITE_ID = 2
+SITE_ID = 3
 
 # robots
 ROBOTS_USE_HOST = True
@@ -183,3 +183,7 @@ INTERNAL_IPS = [
 ]
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
+PASSWORD_RESET_TIMEOUT = 86400 
