@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-
+from django.views.decorators.cache import never_cache
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField(required=True, label='Email')
@@ -20,7 +20,7 @@ class SignupForm(UserCreationForm):
             user.save()
         return user
 
-
+@never_cache
 def login_view(request):
     if request.user.is_authenticated:
         return redirect('/')
@@ -58,7 +58,7 @@ def logout_view(request):
     logout(request)
     return redirect('/')
 
-
+@never_cache
 def signup_view(request):
     if request.user.is_authenticated:
         return redirect('/')

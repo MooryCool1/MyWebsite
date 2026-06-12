@@ -21,6 +21,8 @@ from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from website.sitemaps import StaticViewSitemap
 from blog.sitemaps import BlogSitemap
+from django.views.static import serve
+from django.urls import re_path
 
 
 sitemaps = {
@@ -43,5 +45,6 @@ urlpatterns = [
 
 ]
 
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  
+urlpatterns += [
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+]
