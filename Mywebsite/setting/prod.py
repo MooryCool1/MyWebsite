@@ -22,14 +22,16 @@ CSRF_TRUSTED_ORIGINS = ['https://php-e4xx6g.chbkn.run', 'http://php-e4xx6g.chbkn
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres.ubfcuhluakuwhpkpfcnv',
-        'PASSWORD': 'seyedmorteza000',
-        'HOST': 'aws-1-ap-southeast-1.pooler.supabase.com',
-        'PORT': '6543',
+        'NAME': 'neondb',
+        'USER': 'neondb_owner',
+        'PASSWORD': 'npg_3mcPGb8SCQHg',
+        'HOST': 'ep-gentle-shadow-adw7s1bt.c-2.us-east-1.aws.neon.tech',
+        'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require',
+        },
     }
 }
-
 STATIC_ROOT = BASE_DIR / "staticfiles"  
 STATICFILES_DIRS = [
     BASE_DIR / 'statics', 
