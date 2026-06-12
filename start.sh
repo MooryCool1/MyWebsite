@@ -5,4 +5,4 @@ mkdir -p /var/data/media
 python manage.py migrate --noinput
 python manage.py shell -c "from django.contrib.sites.models import Site; Site.objects.filter(id=1).update(domain='php-e4xx6g.chbkn.run', name='php-e4xx6g.chbkn.run')"
 python manage.py collectstatic --noinput
-gunicorn Mywebsite.wsgi:application --bind 0.0.0.0:8000
+gunicorn Mywebsite.wsgi:application --bind 0.0.0.0:8000 --workers 2 --threads 2
