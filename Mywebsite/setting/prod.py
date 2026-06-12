@@ -17,7 +17,7 @@ SITE_ID = 1
 
 
 # CSRF_COOKIE_SECURE = True
-
+CSRF_TRUSTED_ORIGINS = ['https://php-e4xx6g.chbkn.run', 'http://php-e4xx6g.chbkn.run']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
