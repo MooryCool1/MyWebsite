@@ -2633,6 +2633,8 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .single-destination .thumb img {
   width: 100%;
+  height: 250px;
+  object-fit: cover;
 }
 
 .single-destination .desc {

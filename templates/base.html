@@ -74,7 +74,8 @@
         <div class="container main-menu">
             <div class="row align-items-center justify-content-between d-flex">
                 <div id="logo">
-                    <a href="{% url 'website:index' %}"><img src="{% static 'img/logo.png' %}" alt="" title="" loading="lazy" /></a>
+                    <a href="{% url 'website:index' %}"><img src="{% static 'img/logo.png' %}" alt="" title=""
+                            width="145" height="30" loading="lazy" /></a>
                 </div>
                 <nav id="nav-menu-container">
                     <ul class="nav-menu">
@@ -142,7 +143,8 @@
                     <div class="single-footer-widget">
                         <h6>Newsletter</h6>
                         <p>
-                            For business professionals caught between high OEM price and mediocre print and graphic output.
+                            For business professionals caught between high OEM price and mediocre print and graphic
+                            output.
                         </p>
                         <div>
                             <form action="{% url 'website:newsletter' %}" method="post" class="subscription relative">
@@ -150,7 +152,8 @@
                                 <div class="input-group d-flex flex-row">
                                     <input name="email" placeholder="Email Address" onfocus="this.placeholder = ''"
                                         onblur="this.placeholder = 'Email Address '" required="" type="email">
-                                    <button class="btn bb-btn" type="submit"><span class="lnr lnr-location"></span></button>
+                                    <button class="btn bb-btn" type="submit"><span
+                                            class="lnr lnr-location"></span></button>
                                 </div>
                                 <div class="mt-10 info"></div>
                             </form>
