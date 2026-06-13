@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'captcha',
     'django_summernote',
     'taggit',
+    'compressor',
     'website.apps.WebsiteConfig',
     'blog.apps.BlogConfig', 
     'accounts'
@@ -93,6 +94,24 @@ MIDDLEWARE = [
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+]
+
+COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
+
+COMPRESS_CSS_FILTERS = [
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.rCSSMinFilter',
+]
+
+COMPRESS_JS_FILTERS = [
+    'compressor.filters.jsmin.JSMinFilter',
+]
 
 ROOT_URLCONF = 'Mywebsite.urls'
 

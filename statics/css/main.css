@@ -2433,9 +2433,11 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .logo-link span {
+  font-family: 'Playfair Display', serif;
   color: #ffffff;
   font-size: 34px;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 1px;
   line-height: 1;
 }
 
