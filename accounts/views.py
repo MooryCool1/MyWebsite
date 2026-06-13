@@ -20,6 +20,7 @@ class SignupForm(UserCreationForm):
             user.save()
         return user
 
+
 @never_cache
 def login_view(request):
     if request.user.is_authenticated:
@@ -28,29 +29,26 @@ def login_view(request):
     error = None
 
     if request.method == 'POST':
-        login_type = request.POST.get('login_type', 'username')
+        credential = request.POST.get('credential', '').strip()
         password = request.POST.get('password', '')
         user = None
 
-        if login_type == 'email':
-            email = request.POST.get('email', '').strip()
+        if '@' in credential:
             try:
-                found_user = User.objects.get(email=email)
+                found_user = User.objects.get(email=credential)
                 user = authenticate(request, username=found_user.username, password=password)
             except User.DoesNotExist:
                 user = None
         else:
-            username = request.POST.get('username', '').strip()
-            user = authenticate(request, username=username, password=password)
+            user = authenticate(request, username=credential, password=password)
 
         if user is not None:
             login(request, user)
             return redirect('/')
         else:
-            error = 'User not found'
+            error = 'Invalid username/email or password'
 
-    context = {'error': error}
-    return render(request, 'accounts/login.html', context)
+    return render(request, 'accounts/login.html', {'error': error})
 
 
 @login_required

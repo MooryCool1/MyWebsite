@@ -23,7 +23,7 @@ from website.sitemaps import StaticViewSitemap
 from blog.sitemaps import BlogSitemap
 from django.views.static import serve
 from django.urls import re_path
-
+from . import views
 
 sitemaps = {
     'static': StaticViewSitemap,
@@ -33,6 +33,7 @@ sitemaps = {
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+#    re_path(r'^.*$', views.coming_soon, name='coming_soon'),
     path('', include('website.urls')),
     path('blog/', include('blog.urls')),
     path('accounts/', include('accounts.urls')),

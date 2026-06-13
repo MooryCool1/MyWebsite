@@ -1,6 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load blog_tags %}
+{% block title %}Blog | Travelista{% endblock %}
+
+{% block meta_description %}Read the latest travel tips, destination guides and adventure stories on the Travelista blog.{% endblock %}
+
+{% block meta_keywords %}travel blog, travel tips, destination guides, adventure, Travelista{% endblock %}
+
+{% block og_title %}Blog | Travelista{% endblock %}
+
+{% block og_description %}Read the latest travel tips, destination guides and adventure stories on the Travelista blog.{% endblock %}
+
+{% block og_image %}{% static 'img/blog/blog-home-banner.jpg' %}{% endblock %}
+
+{% block twitter_title %}Blog | Travelista{% endblock %}
+
+{% block twitter_description %}Read the latest travel tips, destination guides and adventure stories on the Travelista blog.{% endblock %}
 {% block content %}
 <!-- start banner Area -->
 <section class="banner-area relative blog-home-banner" id="home">

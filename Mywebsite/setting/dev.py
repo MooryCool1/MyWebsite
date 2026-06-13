@@ -29,3 +29,7 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = BASE_DIR / 'media'
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+EMAIL_HOST_USER = 'mortezafps646@gmail.com'
+EMAIL_HOST_PASSWORD = 'oqkvtnjjhucgopyf'
+DEFAULT_FROM_EMAIL = 'mortezafps646@gmail.com'

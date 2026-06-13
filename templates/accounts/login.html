@@ -11,53 +11,33 @@
 </head>
 
 <body class="text-center">
-  <form class="form-signin" method="post" action="{% url 'accounts:login' %}">
+<form class="form-signin" method="post" action="{% url 'accounts:login' %}">
     {% csrf_token %}
-    <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72"
-      height="72">
+    <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">Please login</h1>
 
-    <div class="btn-group btn-group-toggle mb-3 w-100" id="loginTabs">
-      <button type="button" class="btn btn-outline-primary active" onclick="switchTab('username')">
-        Username
-      </button>
-      <button type="button" class="btn btn-outline-primary" onclick="switchTab('email')">
-        Email
-      </button>
-    </div>
-
-    <div id="field-username">
-      <label class="sr-only">Username</label>
-      <input type="text" name="username" id="input-username" class="form-control" placeholder="Username" autofocus>
-    </div>
-
-    <div id="field-email" style="display:none;">
-      <label class="sr-only">Email</label>
-      <input type="email" name="email" id="input-email" class="form-control" placeholder="Email Address">
-    </div>
-
-    <input type="hidden" name="login_type" id="login_type" value="username">
+    <label class="sr-only">Username or Email</label>
+    <input type="text" name="credential" class="form-control" placeholder="Username or Email" required autofocus>
 
     <label class="sr-only">Password</label>
     <input type="password" name="password" class="form-control" placeholder="Password" required>
 
     {% if error %}
-    <div class="alert alert-danger mt-2" style="text-align:right;">{{ error }}</div>
+    <div class="alert alert-danger mt-2">{{ error }}</div>
     {% endif %}
 
     <div class="checkbox mb-3 mt-2">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
+        <label>
+            <input type="checkbox" value="remember-me"> Remember me
+        </label>
     </div>
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit">login</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
     <p class="mt-3">
-      <a href="{% url 'accounts:password_reset' %}">Forgot your password?</a>
+        <a href="{% url 'accounts:password_reset' %}">Forgot your password?</a>
     </p>
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
-  </form>
-
+</form>
   <script>
     function switchTab(type) {
       var tabs = document.querySelectorAll('#loginTabs button');

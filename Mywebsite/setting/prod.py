@@ -61,3 +61,11 @@ TEMPLATES = [
     },
 ]
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = 'mortezafps646@gmail.com'
+PASSWORD_RESET_TIMEOUT = 86400 

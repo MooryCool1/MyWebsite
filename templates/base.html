@@ -1,17 +1,33 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="zxx" class="no-js">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="colorlib">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <title>Travel</title>
+    <meta name="author" content="Travelista">
+
+    <!-- SEO -->
+    <title>{% block title %}Travelista{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Your travel destination for tours and adventures{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}travel, tour, destination, adventure{% endblock %}">
+    <meta name="robots" content="{% block robots %}index, follow{% endblock %}">
+    <link rel="canonical" href="{% block canonical %}{{ request.build_absolute_uri }}{% endblock %}">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{% block og_title %}Travelista{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Your travel destination for tours and adventures{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{% endblock %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}Travelista{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Your travel destination for tours and adventures{% endblock %}">
+
     <link rel="shortcut icon" href="{% static 'img/fav.png' %}">
 
-    <!-- Preload مهم‌ترین CSS ها -->
+    <!-- Preload -->
     <link rel="preload" href="{% static 'css/bootstrap.css' %}" as="style">
     <link rel="preload" href="{% static 'css/main.css' %}" as="style">
 

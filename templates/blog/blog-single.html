@@ -2,7 +2,27 @@
 {% load static %}
 {% load blog_tags %}
 {% load humanize %}
+
+{% block title %}{{ post.title }} | Travelista{% endblock %}
+
+{% block meta_description %}{{ post.content|striptags|truncatechars:160 }}{% endblock %}
+
+{% block meta_keywords %}{% for tag in post.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor %}{% endblock %}
+
+{% block canonical %}{{ request.build_absolute_uri }}{% endblock %}
+
+{% block og_title %}{{ post.title }}{% endblock %}
+
+{% block og_description %}{{ post.content|striptags|truncatechars:160 }}{% endblock %}
+
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{{ post.image.url }}{% endblock %}
+
+{% block twitter_title %}{{ post.title }}{% endblock %}
+
+{% block twitter_description %}{{ post.content|striptags|truncatechars:160 }}{% endblock %}
+
 {% block content %}
+
 <!-- start banner Area -->
 <section class="relative about-banner">
 	<div class="overlay overlay-bg"></div>
