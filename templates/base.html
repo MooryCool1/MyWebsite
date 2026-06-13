@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="zxx" class="no-js">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -8,14 +9,16 @@
 
     <!-- SEO -->
     <title>{% block title %}Travelista{% endblock %}</title>
-    <meta name="description" content="{% block meta_description %}Your travel destination for tours and adventures{% endblock %}">
+    <meta name="description"
+        content="{% block meta_description %}Your travel destination for tours and adventures{% endblock %}">
     <meta name="keywords" content="{% block meta_keywords %}travel, tour, destination, adventure{% endblock %}">
     <meta name="robots" content="{% block robots %}index, follow{% endblock %}">
     <link rel="canonical" href="{% block canonical %}{{ request.build_absolute_uri }}{% endblock %}">
 
     <!-- Open Graph -->
     <meta property="og:title" content="{% block og_title %}Travelista{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Your travel destination for tours and adventures{% endblock %}">
+    <meta property="og:description"
+        content="{% block og_description %}Your travel destination for tours and adventures{% endblock %}">
     <meta property="og:image" content="{% block og_image %}{% endblock %}">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:type" content="website">
@@ -23,7 +26,8 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{% block twitter_title %}Travelista{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}Your travel destination for tours and adventures{% endblock %}">
+    <meta name="twitter:description"
+        content="{% block twitter_description %}Your travel destination for tours and adventures{% endblock %}">
 
     <link rel="shortcut icon" href="{% static 'img/fav.png' %}">
 
@@ -90,8 +94,10 @@
         <div class="container main-menu">
             <div class="row align-items-center justify-content-between d-flex">
                 <div id="logo">
-                    <a href="{% url 'website:index' %}"><img src="{% static 'img/logo.png' %}" alt="" title=""
-                            width="145" height="30" loading="lazy" /></a>
+                    <a href="{% url 'website:index' %}" class="logo-link">
+                        <img src="{% static 'img/logo2.png' %}" alt="Mooryane">
+                        <span>Mooryane</span>
+                    </a>
                 </div>
                 <nav id="nav-menu-container">
                     <ul class="nav-menu">

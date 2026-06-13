@@ -2,6 +2,7 @@
 export DJANGO_SETTINGS_MODULE=Mywebsite.setting.prod
 mkdir -p /var/data
 mkdir -p /var/data/media
+rm -rf /app/staticfiles
 python manage.py migrate --noinput
 python manage.py shell -c "from django.contrib.sites.models import Site; Site.objects.filter(id=1).update(domain='php-e4xx6g.chbkn.run', name='php-e4xx6g.chbkn.run')"
 python manage.py collectstatic --noinput
