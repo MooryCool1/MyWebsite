@@ -81,6 +81,7 @@ MULTI_CAPTCHA_ADMIN = {
     'engine': 'simple-captcha',
 }
 MIDDLEWARE = [
+    'Mywebsite.middleware.RedirectWWWMiddleware',
     'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
