@@ -21,8 +21,12 @@ CSRF_TRUSTED_ORIGINS = ['https://php-e4xx6g.chbkn.run', 'http://php-e4xx6g.chbkn
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/var/data/db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'rosalinda',
+        'USER': 'postgres',
+        'PASSWORD': 'jC20ouhxObKQksQ6',
+        'HOST': 'services.irn6.chabokan.net',
+        'PORT': '52416',
     }
 }
 STATIC_ROOT = BASE_DIR / "staticfiles"  
