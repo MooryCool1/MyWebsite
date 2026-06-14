@@ -41,12 +41,6 @@
 </section>
 <!-- End banner Area -->
 
-{% if request.user.is_authenticated %}
-<div class="container" style="margin-top: 40px; margin-bottom: -20px;">
-	<a href="{% url 'blog:create_post' %}" class="primary-btn text-uppercase">+ Add New Post</a>
-</div>
-{% endif %}
-
 <!-- Start post-content Area -->
 <section class="post-content-area single-post-area">
 	<div class="container">
@@ -54,25 +48,14 @@
 			<div class="col-lg-8 posts-list">
 				<div class="single-post row">
 					<div class="col-lg-12">
-						<!-- Search bar centered above image -->
-						<div class="d-flex justify-content-center mb-20">
-							<form class="search-form" action="{% url 'blog:search' %}" method="get" style="width: 100%; max-width: 500px;">
-								<input placeholder="Search Posts" name="s" type="text"
-									onfocus="this.placeholder = ''"
-									onblur="this.placeholder = 'Search Posts'">
-								<button type="submit"><i class="fa fa-search"></i></button>
-							</form>
-						</div>
-					</div>
-					<div class="col-lg-12">
 						<div class="feature-img">
-							<img class="img-fluid" src="{{ post.image.url }}" alt="{{ post.title }}" width="870" height="500" loading="lazy">
+							<img class="img-fluid" src="{{ post.image.url }}" alt="" width="870" height="500" loading="lazy">
 						</div>
 					</div>
 					<div class="col-lg-12 mt-20 mb-20">
 						<div class="d-flex justify-content-between align-items-center flex-wrap">
 							<div class="d-flex align-items-center" style="gap: 25px;">
-								<p class="mb-0"><a href="{% url 'blog:author' author_username=post.author.username %}" style="color: inherit;">{{ post.author.username }}</a>
+								<p class="mb-0"><a href="#" style="color: inherit;">{{ post.author.username }}</a>
 									<span class="lnr lnr-user"></span>
 								</p>
 								<p class="mb-0"><a href="#" style="color: inherit;">{{ post.published_date|date:"d M Y"}}</a> <span class="lnr lnr-calendar-full"></span></p>
@@ -95,6 +78,7 @@
 								<li><a href="#" style="color: inherit;"><i class="fa fa-behance"></i></a></li>
 							</ul>
 							<ul class="tags d-flex" style="list-style:none; padding:0; margin:0; gap:5px;">
+
 								{% for cat in post.category.all %}
 								<li><a href="{% url 'blog:category' cat_name=cat.name %}"
 										style="color: inherit;">{{cat.name }}</a>{% if not forloop.last %}, {% endif %}
@@ -108,10 +92,11 @@
 					<div class="row">
 
 						{% if previous_post %}
-						<div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+						<div
+							class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
 							<div class="thumb">
 								<a href="{% url 'blog:single' previous_post.pk %}">
-									<img class="img-fluid" src="{{ previous_post.image.url }}" alt="{{ previous_post.title }}" width="80" height="80" loading="lazy"
+									<img class="img-fluid" src="{{ previous_post.image.url }}" alt="" width="270" height="180" loading="lazy"
 										style="width: 80px; height: 80px; object-fit: cover;">
 								</a>
 							</div>
@@ -129,7 +114,8 @@
 						{% endif %}
 
 						{% if next_post %}
-						<div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+						<div
+							class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
 							<div class="detials">
 								<p>Next Post</p>
 								<a href="{% url 'blog:single' next_post.pk %}">
@@ -142,7 +128,7 @@
 							</div>
 							<div class="thumb">
 								<a href="{% url 'blog:single' next_post.pk %}">
-									<img class="img-fluid" src="{{ next_post.image.url }}" alt="{{ next_post.title }}" width="80" height="80" loading="lazy"
+									<img class="img-fluid" src="{{ next_post.image.url }}" alt="" width="270" height="180" loading="lazy"
 										style="width: 80px; height: 80px; object-fit: cover;">
 								</a>
 							</div>
@@ -207,6 +193,7 @@
 			</div>
 			<div class="col-lg-4 sidebar-widgets">
 				<div class="widget-wrap">
+					{% include 'blog/blog-search.html' %}
 					{% latestposts %}
 					{% postcategories %}
 					{% include 'blog/blog-newsletter.html' %}

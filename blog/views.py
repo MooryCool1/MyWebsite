@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from blog.forms import PostForm
-
+from django.db import models
 def blog_view(request, **kwargs):
     posts = Post.objects.filter(
         status=True,
@@ -84,14 +84,16 @@ def blog_single(request, pk):
 
 
 def blog_search(request):
-    posts = Post.objects.filter(
-        status=True,
-        published_date__lte=timezone.now()
-    ).select_related('author').prefetch_related('category', 'tags')
+    posts = Post.objects.none()
 
     if request.method == 'GET':
         if s := request.GET.get('s'):
-            posts = posts.filter(content__contains=s)
+            posts = Post.objects.filter(
+                status=True,
+                published_date__lte=timezone.now()
+            ).filter(
+                models.Q(title__icontains=s) | models.Q(content__icontains=s)
+            ).select_related('author').prefetch_related('category', 'tags')
 
     context = {'posts': posts}
     return render(request, "blog/blog-home.html", context)

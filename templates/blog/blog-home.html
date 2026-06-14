@@ -39,12 +39,11 @@
 <!-- Start post-content Area -->
 <section class="post-content-area">
 	<div class="container">
-		<div class="row mb-30">
+		<div class="row mb-30" style="margin-top: 40px;">
 			<div class="col-lg-12 text-end">
 				<a href="{% url 'blog:create_post' %}" class="primary-btn">+ Add New Post</a>
 			</div>
-		</div>
-		<div class="row">
+		</div>		<div class="row">
 			<div class="col-lg-8 posts-list">
 				{% for post in posts %}
 				<div class="single-post row">
@@ -113,9 +112,7 @@
 			<div class="col-lg-4 sidebar-widgets">
 				<div class="widget-wrap">
 					{% include 'blog/blog-search.html' %}
-					{% include 'blog/blog-writer.html' %}
 					{% latestposts %}
-					{% include 'blog/blog-ads.html' %}
 					{% postcategories %}
 					{% include 'blog/blog-newsletter.html' %}
 					{% include 'blog/blog-tags.html' %}
