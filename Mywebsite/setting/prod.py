@@ -1,5 +1,7 @@
 from Mywebsite.settings import *
 import os
+from django.contrib.auth.hashers import PBKDF2PasswordHasher
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
@@ -9,16 +11,14 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['php-e4xx6g.chbkn.run', 'www.php-e4xx6g.chbkn.run']
-
+ALLOWED_HOSTS = ['mooryssite.ir', 'www.mooryssite.ir']
 
 # site framework
 SITE_ID = 1
 
 
 # CSRF_COOKIE_SECURE = True
-CSRF_TRUSTED_ORIGINS = ['https://php-e4xx6g.chbkn.run', 'http://php-e4xx6g.chbkn.run']
-
+CSRF_TRUSTED_ORIGINS = ['https://mooryssite.ir', 'https://www.mooryssite.ir']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -35,6 +35,21 @@ STATICFILES_DIRS = [
     BASE_DIR / 'statics', 
 ]
 MEDIA_ROOT = '/var/data/media'
+INSTALLED_APPS += ['cloudinary_storage', 'cloudinary']
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+}
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+}
 
 CACHES = {
     'default': {
