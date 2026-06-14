@@ -20,16 +20,16 @@
     <input type="text" name="credential" class="form-control" placeholder="Username or Email" required autofocus>
 
     <label class="sr-only">Password</label>
-    <input type="password" name="password" class="form-control" placeholder="Password" required>
+    <input type="password" name="password" id="password-field" class="form-control" placeholder="Password" required>
 
     {% if error %}
     <div class="alert alert-danger mt-2">{{ error }}</div>
     {% endif %}
 
     <div class="checkbox mb-3 mt-2">
-        <label>
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
+      <label>
+        <input type="checkbox" onclick="togglePassword()"> Show Password
+      </label>
     </div>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
@@ -39,25 +39,9 @@
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
 </form>
   <script>
-    function switchTab(type) {
-      var tabs = document.querySelectorAll('#loginTabs button');
-      tabs.forEach(function (btn) { btn.classList.remove('active'); });
-
-      if (type === 'username') {
-        tabs[0].classList.add('active');
-        document.getElementById('field-username').style.display = 'block';
-        document.getElementById('field-email').style.display = 'none';
-        document.getElementById('input-username').setAttribute('required', 'required');
-        document.getElementById('input-email').removeAttribute('required');
-      } else {
-        tabs[1].classList.add('active');
-        document.getElementById('field-username').style.display = 'none';
-        document.getElementById('field-email').style.display = 'block';
-        document.getElementById('input-email').setAttribute('required', 'required');
-        document.getElementById('input-username').removeAttribute('required');
-      }
-
-      document.getElementById('login_type').value = type;
+    function togglePassword() {
+      var field = document.getElementById('password-field');
+      field.type = (field.type === 'password') ? 'text' : 'password';
     }
   </script>
 </body>

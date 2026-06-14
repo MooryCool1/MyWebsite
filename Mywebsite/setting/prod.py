@@ -27,6 +27,7 @@ DATABASES = {
         'PASSWORD': 'jC20ouhxObKQksQ6',
         'HOST': 'services.irn6.chabokan.net',
         'PORT': '52416',
+        'CONN_MAX_AGE': 600,
     }
 }
 STATIC_ROOT = BASE_DIR / "staticfiles"  
@@ -72,4 +73,18 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = 'mortezafps646@gmail.com'
-PASSWORD_RESET_TIMEOUT = 86400 
+PASSWORD_RESET_TIMEOUT = 86400
+
+
+# Faster password hashing for low-CPU server
+from django.contrib.auth.hashers import PBKDF2PasswordHasher
+
+
+class FastPBKDF2PasswordHasher(PBKDF2PasswordHasher):
+    iterations = 50000
+
+
+PASSWORD_HASHERS = [
+    'Mywebsite.setting.prod.FastPBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+]
