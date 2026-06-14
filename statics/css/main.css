@@ -4626,3 +4626,8 @@ body.mobile-nav-active #mobile-nav-toggle {
     transform: translateX(0);
   }
 }
+.feature-img img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}

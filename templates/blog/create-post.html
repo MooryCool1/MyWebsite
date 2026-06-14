@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Post | Travelista{% endblock %}
+
+{% block content %}
+<section class="banner-area relative blog-home-banner" id="home">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content blog-header-content col-lg-12">
+                <h1 class="text-white">Create New Post</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container" style="padding: 60px 0;">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.media }}
+
+                <div class="mb-3">
+                    <label class="form-label">Title</label>
+                    {{ form.title }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Content</label>
+                    {{ form.content }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Image</label>
+                    {{ form.image }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Category</label>
+                    {{ form.category }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Tags</label>
+                    {{ form.tags }}
+                </div>
+
+                <button type="submit" class="primary-btn">Publish Post</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

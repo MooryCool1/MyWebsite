@@ -36,72 +36,14 @@
 </section>
 <!-- End banner Area -->
 
-<!-- Start top-category-widget Area -->
-<section class="top-category-widget-area pt-90 pb-90 ">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-4">
-				<div class="single-cat-widget">
-					<div class="content relative">
-						<div class="overlay overlay-bg"></div>
-						<a href="#" target="_blank">
-							<div class="thumb">
-								<img class="content-image img-fluid d-block mx-auto"
-									src="{% static 'img/blog/cat-widget1.jpg' %}" alt="">
-							</div>
-							<div class="content-details">
-								<h4 class="content-title mx-auto text-uppercase">Social life</h4>
-								<span></span>
-								<p>Enjoy your social life together</p>
-							</div>
-						</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="single-cat-widget">
-					<div class="content relative">
-						<div class="overlay overlay-bg"></div>
-						<a href="#" target="_blank">
-							<div class="thumb">
-								<img class="content-image img-fluid d-block mx-auto"
-									src="{% static 'img/blog/cat-widget2.jpg' %}" alt="">
-							</div>
-							<div class="content-details">
-								<h4 class="content-title mx-auto text-uppercase">Politics</h4>
-								<span></span>
-								<p>Be a part of politics</p>
-							</div>
-						</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="single-cat-widget">
-					<div class="content relative">
-						<div class="overlay overlay-bg"></div>
-						<a href="#" target="_blank">
-							<div class="thumb">
-								<img class="content-image img-fluid d-block mx-auto"
-									src="{% static 'img/blog/cat-widget3.jpg' %}" alt="">
-							</div>
-							<div class="content-details">
-								<h4 class="content-title mx-auto text-uppercase">Food</h4>
-								<span></span>
-								<p>Let the food be finished</p>
-							</div>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<!-- End top-category-widget Area -->
-
 <!-- Start post-content Area -->
 <section class="post-content-area">
 	<div class="container">
+		<div class="row mb-30">
+			<div class="col-lg-12 text-end">
+				<a href="{% url 'blog:create_post' %}" class="primary-btn">+ Add New Post</a>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-lg-8 posts-list">
 				{% for post in posts %}
@@ -113,7 +55,7 @@
 							{% endfor %}
 						</ul>
 						<div class="user-details row">
-							<p class="user-name col-lg-12 col-md-12 col-6"><a href="{% url 'blog:author' author_username=post.author.username %}">{{post.author.get_full_name}}</a> <span
+							<p class="user-name col-lg-12 col-md-12 col-6"><a href="{% url 'blog:author' author_username=post.author.username %}">{{post.author.username}}</a> <span
 									class="lnr lnr-user"></span></p>
 							<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{post.published_date|date:"d M Y"}}</a> <span
 									class="lnr lnr-calendar-full"></span></p>

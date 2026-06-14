@@ -5,6 +5,7 @@ app_name = 'blog'
 
 urlpatterns = [
     path('', blog_view, name='index'),
+    path('create/', create_post, name='create_post'),
     path('<int:pk>/', blog_single, name='single'),
     path('author/<str:author_username>', blog_view, name='author'),
     path('search/', blog_search, name='search'),

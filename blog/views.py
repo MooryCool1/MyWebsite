@@ -6,7 +6,8 @@ from blog.forms import CommentForm
 from django.contrib import messages
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-
+from django.contrib.auth.decorators import login_required
+from blog.forms import PostForm
 
 def blog_view(request, **kwargs):
     posts = Post.objects.filter(
@@ -70,7 +71,7 @@ def blog_single(request, pk):
         published_date__gt=post.published_date
     ).order_by('published_date').first()
 
-    comments = Comment.objects.filter(post=post.id, approved=True)
+    comments = Comment.objects.filter(post=post.id,)
 
     context = {
         'post': post,
@@ -94,3 +95,20 @@ def blog_search(request):
 
     context = {'posts': posts}
     return render(request, "blog/blog-home.html", context)
+@login_required
+def create_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.status = True
+            post.published_date = timezone.now()
+            post.save()
+            form.save_m2m()
+            messages.add_message(request, messages.SUCCESS, 'Your post was submitted successfully')
+            return redirect('blog:single', pk=post.id)
+    else:
+        form = PostForm()
+
+    return render(request, 'blog/create-post.html', {'form': form})
