@@ -46,9 +46,10 @@ class Post(models.Model):
                 if img.width > 1200 or img.height > 800:
                     img.thumbnail((1200, 800), Image.LANCZOS)
                 img.save(img_path, quality=85, optimize=True)
+            except NotImplementedError:
+                pass  # Cloudinary storage - skip local processing
             except Exception:
                 pass
-
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
