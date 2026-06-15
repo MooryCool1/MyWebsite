@@ -18,26 +18,28 @@
 {% block twitter_description %}Read the latest travel tips, destination guides and adventure stories on the Travelista blog.{% endblock %}
 {% block content %}
 <!-- start banner Area -->
-<section class="banner-area relative blog-home-banner" id="home">
-	<div class="overlay overlay-bg"></div>
-	<div class="container">
-		<div class="row d-flex align-items-center justify-content-center">
-			<div class="about-content blog-header-content col-lg-12">
-				<h1 class="text-white">
-					Dude You’re Getting
-					a Telescope
-				</h1>
-				<p class="text-white">
-					There is a moment in the life of any aspiring astronomer that it is time to buy that first
-				</p>
-			</div>
-		</div>
-	</div>
+<!-- Start blog preview Area -->
+<section class="recent-blog-area" style="padding-top: 180px; padding-bottom: 0; position: relative; z-index: 1;">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="menu-content pb-30 col-lg-9">
+                <div class="title text-center">
+                    <h2 class="mb-10">Latest from Our Blog</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="active-recent-blog-carusel">
+                {% latestblogposts %}
+            </div>
+        </div>
+    </div>
 </section>
+<!-- End blog preview Area -->
 <!-- End banner Area -->
 
 <!-- Start post-content Area -->
-<section class="post-content-area">
+<section class="post-content-area" style="padding-top: 0;">
 	<div class="container">
 		<div class="row mb-30" style="margin-top: 40px;">
 			<div class="col-lg-12 text-end">
