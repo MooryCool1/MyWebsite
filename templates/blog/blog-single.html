@@ -22,7 +22,11 @@
 {% block twitter_description %}{{ post.content|striptags|truncatechars:160 }}{% endblock %}
 
 {% block content %}
-
+<style>
+    body {
+        background-color: #f0f0f0;
+    }
+</style>
 <!-- start banner Area -->
 <section class="relative about-banner">
 	<div class="overlay overlay-bg"></div>

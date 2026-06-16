@@ -8,4 +8,4 @@ python manage.py shell -c "from django.contrib.sites.models import Site; Site.ob
 python manage.py collectstatic --noinput
 python manage.py compress --force
 python manage.py collectstatic --noinput
-gunicorn Mywebsite.wsgi:application --bind 0.0.0.0:8000 --workers 2 --threads 2
+gunicorn Mywebsite.wsgi:application --bind 0.0.0.0:8000 --workers 1 --threads 2 --max-requests 1000 --max-requests-jitter 100

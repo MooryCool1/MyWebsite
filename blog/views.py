@@ -29,7 +29,10 @@ def blog_view(request, **kwargs):
     except (PageNotAnInteger, EmptyPage):
         posts = paginator.get_page(1)
 
-    context = {'posts': posts}
+    context = {
+        'posts': posts,
+        'is_blog_home': not kwargs.get('cat_name') and not kwargs.get('author_username') and not kwargs.get('tag_name'),
+    }
     return render(request, "blog/blog-home.html", context)
 
 
@@ -95,7 +98,7 @@ def blog_search(request):
                 models.Q(title__icontains=s) | models.Q(content__icontains=s)
             ).select_related('author').prefetch_related('category', 'tags')
 
-    context = {'posts': posts}
+    context = {'posts': posts, 'is_blog_home': False}
     return render(request, "blog/blog-home.html", context)
 @login_required
 def create_post(request):

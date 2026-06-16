@@ -17,9 +17,20 @@
 
 {% block twitter_description %}Read the latest travel tips, destination guides and adventure stories on the Travelista blog.{% endblock %}
 {% block content %}
-<!-- start banner Area -->
+<style>
+    body {
+        background-color: #f0f0f0 !important;
+    }
+    #header {
+        background-color: rgba(34, 34, 34, 0.9) !important;
+	.banner-area.relative#home {
+    	margin-bottom: 40px;
+}
+    }
+</style>
+{% if is_blog_home %}
 <!-- Start blog preview Area -->
-<section class="recent-blog-area" style="padding-top: 180px; padding-bottom: 0; position: relative; z-index: 1;">
+<section class="recent-blog-area" style="padding-top: 220px; padding-bottom: 0; position: relative; z-index: 1;">
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="menu-content pb-30 col-lg-9">
@@ -36,7 +47,24 @@
     </div>
 </section>
 <!-- End blog preview Area -->
-<!-- End banner Area -->
+{% else %}
+<!-- start banner Area -->
+<section class="relative about-banner" {% if not is_blog_home %}style="margin-bottom: 40px;"{% endif %}>
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="about-content col-lg-12">
+                <h1 class="text-white">Blog</h1>
+                <p class="text-white link-nav">
+                    <a href="{% url 'website:index' %}">Home</a>
+                    <span class="lnr lnr-arrow-right"></span>
+                    <a href="{% url 'blog:index' %}">Blog</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section><!-- End banner Area -->
+{% endif %}
 
 <!-- Start post-content Area -->
 <section class="post-content-area" style="padding-top: 0;">
