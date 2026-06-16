@@ -117,3 +117,17 @@ def create_post(request):
         form = PostForm()
 
     return render(request, 'blog/create-post.html', {'form': form})
+
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def delete_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if post.author != request.user:
+        messages.error(request, 'You dont have permission for this action')
+        return redirect('blog:single', pk=pk)
+    if request.method == 'POST':
+        post.delete()
+        messages.success(request, 'Your post was deleted successfully')
+        return redirect('blog:index')
+    return render(request, 'blog/delete_post.html', {'post': post})

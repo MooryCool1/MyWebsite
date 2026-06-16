@@ -11,5 +11,6 @@ urlpatterns = [
     path('search/', blog_search, name='search'),
     path('category/<str:cat_name>', blog_view, name='category'),
     path('tag/<str:tag_name>', blog_view, name='tag'),
+    path('<int:pk>/delete/', delete_post, name='delete'),
 
 ]
