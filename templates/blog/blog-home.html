@@ -1,102 +1,114 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load blog_tags %}
-{% block title %}Blog | Travelista{% endblock %}
+{% block title %}Blog | Mooryane{% endblock %}
 
-{% block meta_description %}Read the latest travel tips, destination guides and adventure stories on the Travelista blog.{% endblock %}
+{% block meta_description %}Read the latest travel tips, destination guides and adventure stories on the Mooryane
+blog.{% endblock %}
 
-{% block meta_keywords %}travel blog, travel tips, destination guides, adventure, Travelista{% endblock %}
+{% block meta_keywords %}travel blog, travel tips, destination guides, adventure, Mooryane{% endblock %}
 
-{% block og_title %}Blog | Travelista{% endblock %}
+{% block og_title %}Blog | Mooryane{% endblock %}
 
-{% block og_description %}Read the latest travel tips, destination guides and adventure stories on the Travelista blog.{% endblock %}
+{% block og_description %}Read the latest travel tips, destination guides and adventure stories on the Mooryane
+blog.{% endblock %}
 
 {% block og_image %}{% static 'img/blog/blog-home-banner.jpg' %}{% endblock %}
 
-{% block twitter_title %}Blog | Travelista{% endblock %}
+{% block twitter_title %}Blog | Mooryane{% endblock %}
 
-{% block twitter_description %}Read the latest travel tips, destination guides and adventure stories on the Travelista blog.{% endblock %}
+{% block twitter_description %}Read the latest travel tips, destination guides and adventure stories on the Mooryane
+blog.{% endblock %}
 {% block content %}
 <style>
-    body {
-        background-color: #f0f0f0 !important;
-    }
-    #header {
-        background-color: rgba(34, 34, 34, 0.9) !important;
-	.banner-area.relative#home {
-    	margin-bottom: 40px;
-}
-    }
+	body {
+		background-color: #f0f0f0 !important;
+	}
+
+	#header {
+		background-color: rgba(34, 34, 34, 0.9) !important;
+
+		.banner-area.relative#home {
+			margin-bottom: 40px;
+		}
+	}
 </style>
 {% if is_blog_home %}
 <!-- Start blog preview Area -->
 <section class="recent-blog-area" style="padding-top: 220px; padding-bottom: 0; position: relative; z-index: 1;">
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="menu-content pb-30 col-lg-9">
-                <div class="title text-center">
-                    <h2 class="mb-10">Latest from Our Blog</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="active-recent-blog-carusel">
-                {% latestblogposts %}
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<div class="row d-flex justify-content-center">
+			<div class="menu-content pb-30 col-lg-9">
+				<div class="title text-center">
+					<h2 class="mb-10">Latest from Our Blog</h2>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="active-recent-blog-carusel">
+				{% latestblogposts %}
+			</div>
+		</div>
+	</div>
 </section>
 <!-- End blog preview Area -->
 {% else %}
 <!-- start banner Area -->
-<section class="relative about-banner" {% if not is_blog_home %}style="margin-bottom: 40px;"{% endif %}>
-    <div class="overlay overlay-bg"></div>
-    <div class="container">
-        <div class="row d-flex align-items-center justify-content-center">
-            <div class="about-content col-lg-12">
-                <h1 class="text-white">Blog</h1>
-                <p class="text-white link-nav">
-                    <a href="{% url 'website:index' %}">Home</a>
-                    <span class="lnr lnr-arrow-right"></span>
-                    <a href="{% url 'blog:index' %}">Blog</a>
-                </p>
-            </div>
-        </div>
-    </div>
+<section class="relative about-banner" {% if not is_blog_home %}style="margin-bottom: 40px;" {% endif %}>
+	<div class="overlay overlay-bg"></div>
+	<div class="container">
+		<div class="row d-flex align-items-center justify-content-center">
+			<div class="about-content col-lg-12">
+				<h1 class="text-white">Blog</h1>
+				<p class="text-white link-nav">
+					<a href="{% url 'website:index' %}">Home</a>
+					<span class="lnr lnr-arrow-right"></span>
+					<a href="{% url 'blog:index' %}">Blog</a>
+				</p>
+			</div>
+		</div>
+	</div>
 </section><!-- End banner Area -->
 {% endif %}
 
 <!-- Start post-content Area -->
 <section class="post-content-area" style="padding-top: 0;">
 	<div class="container">
+		{% if is_blog_home %}
 		<div class="row mb-30" style="margin-top: 40px;">
 			<div class="col-lg-12 text-end">
 				<a href="{% url 'blog:create_post' %}" class="primary-btn">+ Add New Post</a>
 			</div>
-		</div>		<div class="row">
+		</div>
+		{% endif %}
+		<div class="row">
 			<div class="col-lg-8 posts-list">
 				{% for post in posts %}
 				<div class="single-post row">
 					<div class="col-lg-3  col-md-3 meta-details">
 						<ul class="tags">
 							{% for cat in post.category.all %}
-							<li><a href="{% url 'blog:category' cat_name=cat.name %}" style="color: inherit;">{{ cat.name }}</a>{% if not forloop.last %}, {% endif %}</li>
+							<li><a href="{% url 'blog:category' cat_name=cat.name %}" style="color: inherit;">{{ cat.name }}</a>
+								{% if not forloop.last %}, {% endif %}</li>
 							{% endfor %}
 						</ul>
 						<div class="user-details row">
-							<p class="user-name col-lg-12 col-md-12 col-6"><a href="{% url 'blog:author' author_username=post.author.username %}">{{post.author.username}}</a> <span
-									class="lnr lnr-user"></span></p>
-							<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{post.published_date|date:"d M Y"}}</a> <span
-									class="lnr lnr-calendar-full"></span></p>
+							<p class="user-name col-lg-12 col-md-12 col-6"><a
+									href="{% url 'blog:author' author_username=post.author.username %}">{{post.author.username}}</a>
+								<span class="lnr lnr-user"></span>
+							</p>
+							<p class="date col-lg-12 col-md-12 col-6"><a href="#">{{post.published_date|date:"d M Y"}}</a>
+								 <span class="lnr lnr-calendar-full"></span></p>
 							<p class="view col-lg-12 col-md-12 col-6"><a href="#">{{post.counted_views}} Views</a> <span
 									class="lnr lnr-eye"></span></p>
-							<p class="comments col-lg-12 col-md-12 col-6"><a href="#">{% comments_count post.id %} Comments</a> <span
-									class="lnr lnr-bubble"></span></p>
+							<p class="comments col-lg-12 col-md-12 col-6"><a href="#">{% comments_count post.id %}
+									Comments</a> <span class="lnr lnr-bubble"></span></p>
 						</div>
 					</div>
 					<div class="col-lg-9 col-md-9 ">
 						<div class="feature-img">
-							<img class="img-fluid" src="{{post.image.url}}" alt="" width="370" height="250" loading="lazy">
+							<img class="img-fluid" src="{{post.image.url}}" alt="" width="370" height="250"
+								loading="lazy">
 						</div>
 						<a class="posts-title" href="{% url 'blog:single' post.pk %}">
 							<h3>{{ post.title }}</h3>
@@ -121,12 +133,12 @@
 						{% endif %}
 						{% for i in posts.paginator.page_range %}
 						{% if posts.number == i %}
-							<li class="page-item active"><a href="?page={{i}}" class="page-link">{{i}}</a></li>
-							{% else %}
-							<li class="page-item"><a href="?page={{i}}" class="page-link">{{i}}</a></li>
+						<li class="page-item active"><a href="?page={{i}}" class="page-link">{{i}}</a></li>
+						{% else %}
+						<li class="page-item"><a href="?page={{i}}" class="page-link">{{i}}</a></li>
 						{% endif %}
 						{% endfor %}
-			
+
 						{% if posts.has_next %}
 						<li class="page-item">
 							<a href="?page={{ posts.next_page_number }}" class="page-link" aria-label="Next">
