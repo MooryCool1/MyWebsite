@@ -1,67 +1,648 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Create Post | Travelista{% endblock %}
+{% block title %}Create Post | Mooryane{% endblock %}
 
 {% block content %}
+
 <style>
-    body {
-        background-color: #f0f0f0;
+    /* ── Page Background ── */
+    .cp-page {
+        background: #f5f6fa;
+        min-height: 100vh;
+        padding: 60px 0 80px;
     }
+
+    /* ── Card wrapper ── */
+    .cp-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 32px rgba(34,34,34,.07);
+        overflow: hidden;
+    }
+
+    /* ── Card header strip ── */
+    .cp-card-header {
+        background: linear-gradient(135deg, #f8b600 0%, #e6a200 100%);
+        padding: 32px 40px 28px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+    .cp-card-header-icon {
+        width: 48px;
+        height: 48px;
+        background: rgba(255,255,255,.25);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    .cp-card-header-icon i {
+        font-size: 22px;
+        color: #fff;
+    }
+    .cp-card-header h2 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: -.3px;
+    }
+    .cp-card-header p {
+        margin: 4px 0 0;
+        font-size: 13px;
+        color: rgba(255,255,255,.82);
+    }
+
+    /* ── Card body ── */
+    .cp-card-body {
+        padding: 36px 40px 40px;
+    }
+
+    /* ── Section divider ── */
+    .cp-section {
+        margin-bottom: 32px;
+    }
+    .cp-section-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #f5f6fa;
+    }
+    .cp-section-label span.cp-badge {
+        width: 30px;
+        height: 30px;
+        background: #fff8e1;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    .cp-section-label span.cp-badge i {
+        font-size: 14px;
+        color: #f8b600;
+    }
+    .cp-section-label label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #222;
+        margin: 0;
+        letter-spacing: .1px;
+    }
+    .cp-section-label small {
+        font-size: 12px;
+        color: #aaa;
+        margin-right: auto;
+    }
+
+    /* ── Inputs ── */
+    .cp-card-body input[type="text"],
+    .cp-card-body input[type="email"],
+    .cp-card-body select,
+    .cp-card-body textarea {
+        width: 100%;
+        border: 1.5px solid #f8b600;
+        border-radius: 10px;
+        padding: 12px 16px;
+        font-size: 14.5px;
+        color: #333;
+        background: #fff;
+        transition: border-color .2s, box-shadow .2s;
+        outline: none;
+        font-family: 'Vazirmatn', 'Poppins', sans-serif;
+        box-shadow: 0 0 0 3px rgba(248,182,0,.10);
+    }
+    .cp-card-body input[type="text"]:focus,
+    .cp-card-body select:focus,
+    .cp-card-body textarea:focus {
+        border-color: #e6a200;
+        box-shadow: 0 0 0 4px rgba(248,182,0,.20);
+        background: #fff;
+    }
+
+    /* ── Image upload zone ── */
+    .cp-image-upload-wrapper {
+        position: relative;
+    }
+    .cp-image-upload-zone {
+        border: 2px dashed #d8dae0;
+        border-radius: 12px;
+        background: #fafbfc;
+        padding: 30px 20px;
+        text-align: center;
+        transition: border-color .2s, background .2s;
+        cursor: pointer;
+        position: relative;
+    }
+    .cp-image-upload-zone:hover {
+        border-color: #f8b600;
+        background: #fffbf0;
+    }
+    .cp-image-upload-zone .upload-icon {
+        width: 56px;
+        height: 56px;
+        background: #fff8e1;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 12px;
+    }
+    .cp-image-upload-zone .upload-icon i {
+        font-size: 24px;
+        color: #f8b600;
+    }
+    .cp-image-upload-zone h6 {
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 4px;
+    }
+    .cp-image-upload-zone p {
+        font-size: 12px;
+        color: #999;
+        margin: 0;
+    }
+    .cp-image-upload-zone input[type="file"] {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+    #cp-image-preview {
+        display: none;
+        margin-top: 14px;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1.5px solid #e8eaf0;
+        position: relative;
+    }
+    #cp-image-preview img {
+        width: 100%;
+        max-height: 240px;
+        object-fit: cover;
+        display: block;
+    }
+    #cp-image-preview .cp-preview-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: rgba(0,0,0,.55);
+        color: #fff;
+        font-size: 11px;
+        padding: 3px 10px;
+        border-radius: 20px;
+    }
+
+    /* ── Category checkboxes ── */
+    .cp-category-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .cp-category-grid label {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        background: #f5f6fa;
+        border: 1.5px solid #e8eaf0;
+        border-radius: 8px;
+        padding: 8px 14px;
+        font-size: 13px;
+        color: #555;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all .18s;
+    }
+    .cp-category-grid label:hover {
+        border-color: #f8b600;
+        background: #fffbf0;
+        color: #333;
+    }
+    .cp-category-grid input[type="checkbox"] {
+        accent-color: #f8b600;
+        width: 15px;
+        height: 15px;
+        flex-shrink: 0;
+        border: none !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        background: transparent !important;
+    }
+    /* style the checked state of the pill */
+    .cp-category-grid label:has(input:checked) {
+        border-color: #f8b600;
+        background: #fff8e1;
+        color: #b8860b;
+    }
+
+    /* ── Tags input ── */
+    .cp-tags-hint {
+        font-size: 11.5px;
+        color: #bbb;
+        margin-top: 6px;
+        display: block;
+    }
+
+    /* ── Footer actions ── */
+    .cp-form-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 28px;
+        border-top: 2px solid #f5f6fa;
+        margin-top: 8px;
+    }
+    .cp-form-footer .cp-cancel-link {
+        font-size: 13.5px;
+        color: #999;
+        text-decoration: none;
+        transition: color .18s;
+    }
+    .cp-form-footer .cp-cancel-link:hover {
+        color: #555;
+    }
+    .cp-submit-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        background: linear-gradient(135deg, #f8b600 0%, #e6a200 100%);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        padding: 13px 32px;
+        font-size: 14.5px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform .15s, box-shadow .15s;
+        box-shadow: 0 4px 16px rgba(248,182,0,.35);
+        font-family: 'Vazirmatn', 'Poppins', sans-serif;
+    }
+    .cp-submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 7px 22px rgba(248,182,0,.45);
+    }
+    .cp-submit-btn i {
+        font-size: 15px;
+    }
+
+    /* ── Sidebar info card ── */
+    .cp-sidebar-card {
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 4px 20px rgba(34,34,34,.06);
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
+    .cp-sidebar-card-header {
+        background: #f5f6fa;
+        padding: 14px 20px;
+        border-bottom: 1.5px solid #eee;
+    }
+    .cp-sidebar-card-header h6 {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 600;
+        color: #444;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+    }
+    .cp-sidebar-card-header h6 i {
+        color: #f8b600;
+    }
+    .cp-sidebar-card-body {
+        padding: 18px 20px;
+    }
+    .cp-tip-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .cp-tip-list li {
+        font-size: 12.5px;
+        color: #666;
+        padding: 6px 0;
+        border-bottom: 1px dashed #f0f0f0;
+        display: flex;
+        gap: 8px;
+        align-items: flex-start;
+        line-height: 1.5;
+    }
+    .cp-tip-list li:last-child {
+        border-bottom: none;
+    }
+    .cp-tip-list li i {
+        color: #f8b600;
+        font-size: 11px;
+        flex-shrink: 0;
+        margin-top: 3px;
+    }
+
+    /* ── Summernote override ── */
+    .note-editor.note-frame {
+        border-radius: 10px !important;
+        border: 1.5px solid #e8eaf0 !important;
+        overflow: hidden;
+    }
+    .note-editor.note-frame.focus {
+        border-color: #f8b600 !important;
+        box-shadow: 0 0 0 3px rgba(248,182,0,.13) !important;
+    }
+    .note-toolbar {
+        background: #f9fafb !important;
+        border-bottom: 1.5px solid #e8eaf0 !important;
+        border-radius: 0 !important;
+        padding: 6px 8px !important;
+    }
+
+    /* ── Banner ── */
+    .cp-banner {
+        background: linear-gradient(135deg, #222 0%, #333 100%);
+        padding: 48px 0 44px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .cp-banner::before {
+        content: '';
+        position: absolute;
+        top: -40px; right: -40px;
+        width: 200px; height: 200px;
+        background: rgba(248,182,0,.08);
+        border-radius: 50%;
+    }
+    .cp-banner::after {
+        content: '';
+        position: absolute;
+        bottom: -60px; left: -60px;
+        width: 260px; height: 260px;
+        background: rgba(248,182,0,.06);
+        border-radius: 50%;
+    }
+    .cp-banner-inner {
+        position: relative;
+        z-index: 1;
+    }
+    .cp-banner h1 {
+        font-size: 34px;
+        font-weight: 800;
+        color: #fff;
+        margin: 0 0 8px;
+        letter-spacing: -.5px;
+    }
+    .cp-banner h1 span {
+        color: #f8b600;
+    }
+    .cp-banner p {
+        font-size: 14px;
+        color: rgba(255,255,255,.6);
+        margin: 0;
+    }
+    .cp-breadcrumb {
+        margin-top: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 12.5px;
+        color: rgba(255,255,255,.45);
+    }
+    .cp-breadcrumb a {
+        color: rgba(255,255,255,.55);
+        text-decoration: none;
+    }
+    .cp-breadcrumb a:hover { color: #f8b600; }
+    .cp-breadcrumb i { font-size: 10px; }
 </style>
 
-<section class="banner-area relative" id="home">
-    <div class="overlay overlay-bg"></div>
-    <div class="container">
-        <div class="row d-flex align-items-center justify-content-center">
-            <div class="about-content blog-header-content col-lg-12">
-                <h1 class="text-white">Create New Post</h1>
-            </div>
-        </div>
-    </div>
-</section>
-
-<div class="container" style="padding: 60px 0;">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.media }}
-
-                <div class="mb-3">
-                    <label class="form-label">Title</label>
-                    {{ form.title }}
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Content</label>
-                    {{ form.content }}
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Image</label>
-                    {{ form.image }}
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Category</label>
-                    {{ form.category }}
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Tags</label>
-                    {{ form.tags }}
-                </div>
-
-                <button type="submit" class="primary-btn">Publish Post</button>
-            </form>
+<!-- Banner -->
+<div class="cp-banner">
+    <div class="container cp-banner-inner">
+        <h1>Write a <span>New Post</span></h1>
+        <div class="cp-breadcrumb">
+            <a href="{% url 'website:index' %}">Home</a>
+            <i class="fa fa-angle-left"></i>
+            <a href="{% url 'blog:index' %}">Blog</a>
+            <i class="fa fa-angle-left"></i>
+            <span>New Post</span>
         </div>
     </div>
 </div>
+
+<!-- Main content -->
+<div class="cp-page">
+    <div class="container">
+
+        {% if messages %}
+        <div class="row justify-content-center mb-3">
+            <div class="col-lg-10">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} mb-2" style="border-radius:10px;">{{ message }}</div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row justify-content-center">
+
+            <!-- ── Form column ── -->
+            <div class="col-lg-8 col-md-10 mb-4">
+                <div class="cp-card">
+
+                    <div class="cp-card-header">
+                        <div class="cp-card-header-icon">
+                            <i class="fa fa-pencil"></i>
+                        </div>
+                        <div>
+                            <h2>Post Details</h2>
+                            <p>Fill in all fields carefully</p>
+                        </div>
+                    </div>
+
+                    <div class="cp-card-body">
+                        <form method="post" enctype="multipart/form-data" id="cp-form">
+                            {% csrf_token %}
+                            {{ form.media }}
+
+                            <!-- Title -->
+                            <div class="cp-section">
+                                <div class="cp-section-label">
+                                    <span class="cp-badge"><i class="fa fa-header"></i></span>
+                                    <label>Post Title</label>
+                                    <small>Required</small>
+                                </div>
+                                {{ form.title }}
+                            </div>
+
+                            <!-- Description -->
+                            <div class="cp-section">
+                                <div class="cp-section-label">
+                                    <span class="cp-badge"><i class="fa fa-align-left"></i></span>
+                                    <label>Description</label>
+                                    <small>Required</small>
+                                </div>
+                                {{ form.content }}
+                            </div>
+
+                            <!-- Image -->
+                            <div class="cp-section">
+                                <div class="cp-section-label">
+                                    <span class="cp-badge"><i class="fa fa-image"></i></span>
+                                    <label>Cover Image</label>
+                                    <small>Optional</small>
+                                </div>
+                                <div class="cp-image-upload-zone" id="cp-upload-zone">
+                                    <div class="upload-icon">
+                                        <i class="fa fa-cloud-upload"></i>
+                                    </div>
+                                    <h6>Click to upload</h6>
+                                    <p>PNG, JPG or WEBP — max 5 MB</p>
+                                    {{ form.image }}
+                                </div>
+                                <div id="cp-image-preview">
+                                    <img id="cp-preview-img" src="" alt="Preview">
+                                    <span class="cp-preview-badge">Preview</span>
+                                </div>
+                            </div>
+
+                            <!-- Category -->
+                            <div class="cp-section">
+                                <div class="cp-section-label">
+                                    <span class="cp-badge"><i class="fa fa-folder-open"></i></span>
+                                    <label>Category</label>
+                                </div>
+                                <div class="cp-category-grid" id="cp-cat-grid">
+                                    {{ form.category }}
+                                </div>
+                            </div>
+
+                            <!-- Tags -->
+                            <div class="cp-section">
+                                <div class="cp-section-label">
+                                    <span class="cp-badge"><i class="fa fa-tags"></i></span>
+                                    <label>Tags</label>
+                                    <small>Optional</small>
+                                </div>
+                                {{ form.tags }}
+                                <span class="cp-tags-hint"><i class="fa fa-info-circle"></i> You can select multiple tags</span>
+                            </div>
+
+                            <!-- Footer -->
+                            <div class="cp-form-footer">
+                                <a href="{% url 'blog:index' %}" class="cp-cancel-link">
+                                    <i class="fa fa-arrow-left"></i> Cancel
+                                </a>
+                                <button type="submit" class="cp-submit-btn">
+                                    <i class="fa fa-paper-plane"></i>
+                                    Publish Post
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Sidebar ── -->
+            <div class="col-lg-4 col-md-10">
+
+                <div class="cp-sidebar-card">
+                    <div class="cp-sidebar-card-header">
+                        <h6><i class="fa fa-lightbulb-o"></i> Writing Tips</h6>
+                    </div>
+                    <div class="cp-sidebar-card-body">
+                        <ul class="cp-tip-list">
+                            <li><i class="fa fa-circle"></i> Keep your title short and catchy (max 70 chars)</li>
+                            <li><i class="fa fa-circle"></i> Write content in short, readable paragraphs</li>
+                            <li><i class="fa fa-circle"></i> Choose a high-quality image (16:9 ratio is ideal)</li>
+                            <li><i class="fa fa-circle"></i> A proper category helps your post get discovered</li>
+                            <li><i class="fa fa-circle"></i> Relevant tags increase your post visibility</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="cp-sidebar-card">
+                    <div class="cp-sidebar-card-header">
+                        <h6><i class="fa fa-check-circle"></i> Pre-publish Checklist</h6>
+                    </div>
+                    <div class="cp-sidebar-card-body">
+                        <ul class="cp-tip-list">
+                            <li><i class="fa fa-circle"></i> Did you confirm the post title?</li>
+                            <li><i class="fa fa-circle"></i> Content proofread and reviewed?</li>
+                            <li><i class="fa fa-circle"></i> Cover image uploaded?</li>
+                            <li><i class="fa fa-circle"></i> Category selected?</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    /* ── Image preview ── */
+    var zone = document.getElementById('cp-upload-zone');
+    if (zone) {
+        var fileInput = zone.querySelector('input[type="file"]');
+        var preview   = document.getElementById('cp-image-preview');
+        var previewImg = document.getElementById('cp-preview-img');
+
+        if (fileInput) {
+            fileInput.addEventListener('change', function () {
+                var file = this.files[0];
+                if (!file) return;
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    previewImg.src = e.target.result;
+                    preview.style.display = 'block';
+                    zone.style.borderColor = '#f8b600';
+                    zone.style.background  = '#fffbf0';
+                    zone.querySelector('h6').textContent = file.name;
+                    zone.querySelector('p').textContent  = (file.size / 1024 / 1024).toFixed(2) + ' MB';
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+    }
+
+    /* ── Wrap category checkboxes in pill labels ── */
+    var catGrid = document.getElementById('cp-cat-grid');
+    if (catGrid) {
+        /* Django renders ul>li>label+input for CheckboxSelectMultiple */
+        var inputs = catGrid.querySelectorAll('input[type="checkbox"]');
+        inputs.forEach(function (inp) {
+            var existingLabel = catGrid.querySelector('label[for="' + inp.id + '"]');
+            if (existingLabel && !existingLabel.classList.contains('cp-pill')) {
+                existingLabel.classList.add('cp-pill');
+                existingLabel.insertBefore(inp, existingLabel.firstChild);
+            }
+        });
+        /* remove stray ul/li wrappers */
+        var uls = catGrid.querySelectorAll('ul');
+        uls.forEach(function (ul) {
+            var frag = document.createDocumentFragment();
+            ul.querySelectorAll('li').forEach(function (li) {
+                while (li.firstChild) frag.appendChild(li.firstChild);
+            });
+            ul.parentNode.replaceChild(frag, ul);
+        });
+    }
+})();
+</script>
+
 {% endblock %}
